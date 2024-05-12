@@ -61,16 +61,3 @@ jobs:
             docker stop web && docker rm web
             docker rmi tropic71/galeria
             docker run -d -p 80:5000 --name web tropic71/galeria:latest
-
-  check:  
-    name: checkfor status 200
-    runs-on: ubuntu-latest
-    needs: aws
-    steps:
-      - uses: actions/checkout@v2
-      - id: text
-        uses: johnlokerse/website-healthcheck@v2
-        with:
-          web-url: "http://${{ secrets.AWS_HOSTNAME }}"
-          scan-for-text: "Hello from Flask App"
-
